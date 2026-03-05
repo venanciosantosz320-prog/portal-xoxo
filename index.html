@@ -3,105 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Emilli dos Santos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <title>Para Minha Emilli</title>
     <style>
+        /* CSS PREMIUM */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #000; color: white; font-family: 'Montserrat', sans-serif; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-        .container { position: relative; z-index: 10; padding: 30px; width: 90%; max-width: 500px; text-align: center; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(15px); border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 0 50px rgba(255, 75, 43, 0.4); }
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ff4b2b; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 75, 43, 0.8); }
-        #surpresa { display: none; animation: fadeIn 2s forwards; }
-        .texto { font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px; }
-        .promessa { display: block; margin-top: 20px; color: #ff416c; font-weight: 600; font-size: 1.3rem; text-shadow: 0 0 15px rgba(255, 65, 108, 0.7); }
-        #legenda { margin-top: 25px; font-style: italic; color: #ff9a9e; height: 40px; font-size: 1rem; }
-        .botao { background: linear-gradient(45deg, #ff416c, #ff4b2b); color: white; border: none; padding: 20px 40px; border-radius: 100px; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        #player-api { position: absolute; top: -1000px; }
+        
+        body, html {
+            width: 100%; height: 100%;
+            background: #000;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        /* Fundo de Nebulosa Animada */
+        #canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            filter: blur(2px);
+        }
+
+        /* Overlay para dar profundidade */
+        .overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, black 120%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .main-card {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 60px 40px;
+            text-align: center;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.9);
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 200;
+            letter-spacing: 15px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        #textTarget {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #f0f0f0;
+            min-height: 150px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .gold-button {
+            background: linear-gradient(45deg, #d4af37, #f9e29c);
+            color: #000;
+            border: none;
+            padding: 22px 50px;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+            text-transform: uppercase;
+        }
+
+        .gold-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.5);
+        }
+
+        .hidden { display: none; }
+
+        /* Estilo da Frase Final */
+        .highlight {
+            color: #d4af37;
+            font-weight: 600;
+            display: block;
+            margin-top: 15px;
+            font-size: 1.5rem;
+        }
     </style>
 </head>
 <body>
-    <canvas id="galaxy"></canvas>
-    <div class="container">
-        <h1>Emilli dos Santos</h1>
-        <button id="btnPlay" class="botao" onclick="abrirSurpresa()">Veja sua surpresa ❤️</button>
-        <div id="surpresa">
-            <div class="texto">
-                <p>Eu sei que por um momento eu te deixei. O mundo ficou vazio, mas isso me fez entender que não existe sentido em nada se você não estiver aqui.</p>
-                <span class="promessa">Eu nunca mais vou te deixar. Prometo.</span>
-            </div>
-            <div id="legenda">Preparando nossa música...</div>
-        </div>
+
+    <canvas id="canvas"></canvas>
+    <div class="overlay"></div>
+
+    <div class="main-card">
+        <h1>EMILLI</h1>
+        <div id="textTarget">Uma mensagem eterna para você...</div>
+        <button class="gold-button" id="startBtn">Abrir Presente</button>
     </div>
 
-    <div id="player-api"></div>
+    <audio id="bgMusic" loop>
+        <source src="https://files.catbox.moe/tooofe.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
-        // --- ANIMAÇÃO DA GALÁXIA ---
-        const canvas = document.getElementById('galaxy');
+        const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
-        let stars = [];
+        const audio = document.getElementById('bgMusic');
+        const btn = document.getElementById('startBtn');
+        const textDisplay = document.getElementById('textTarget');
+
+        const msgOriginal = "Voltei pra ficar e não te deixar de maneira alguma. Amo você Emilli, você é minha.";
+
+        // --- ANIMAÇÃO DE FUNDO (PARTÍCULAS PROFISSIONAIS) ---
+        let dots = [];
         function init() {
-            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            stars = [];
-            for(let i=0; i<500; i++) {
-                stars.push({ x: 0, y: 0, r: Math.random() * 1.5, ang: Math.random() * Math.PI * 2, dist: Math.random() * (canvas.width / 1.5), v: 0.0005 + Math.random() * 0.001 });
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            dots = [];
+            for (let i = 0; i < 120; i++) {
+                dots.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2
+                });
             }
         }
+
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "white";
-            stars.forEach(s => {
-                s.ang += s.v;
-                let x = canvas.width/2 + Math.cos(s.ang) * s.dist;
-                let y = canvas.height/2 + Math.sin(s.ang) * s.dist;
-                ctx.beginPath(); ctx.arc(x, y, s.r, 0, Math.PI*2); ctx.fill();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+            dots.forEach(dot => {
+                dot.x += dot.vx;
+                dot.y += dot.vy;
+                if (dot.x < 0 || dot.x > canvas.width) dot.vx *= -1;
+                if (dot.y < 0 || dot.y > canvas.height) dot.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
+                ctx.fill();
             });
             requestAnimationFrame(draw);
         }
-        window.onresize = init; init(); draw();
 
-        // --- INTEGRAÇÃO YOUTUBE ---
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        init();
+        draw();
+        window.onresize = init;
 
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player-api', {
-                height: '0',
-                width: '0',
-                videoId: 'yJEA_c6GxVE', // Anna of the North - Lovers
-                playerVars: {
-                    'autoplay': 0,
-                    'controls': 0,
-                    'start': 81 // Começa em 1:21
-                }
+        // --- EFEITO DE REVELAÇÃO ---
+        btn.addEventListener('click', () => {
+            audio.play().then(() => {
+                btn.classList.add('hidden');
+                textDisplay.innerHTML = "";
+                typeWriter(msgOriginal, 0);
+            }).catch(e => {
+                alert("Clique novamente no botão para liberar o áudio!");
             });
-        }
+        });
 
-        function abrirSurpresa() {
-            // Tenta dar play no YouTube
-            if (player && player.playVideo) {
-                player.playVideo();
+        function typeWriter(text, i) {
+            if (i < text.length) {
+                textDisplay.innerHTML += text.charAt(i);
+                setTimeout(() => typeWriter(text, i + 1), 70);
+            } else {
+                // Adiciona um brilho final na frase
+                textDisplay.style.transition = "1s";
+                textDisplay.style.textShadow = "0 0 20px rgba(255,255,255,0.8)";
             }
-
-            document.getElementById('btnPlay').style.display = 'none';
-            document.getElementById('surpresa').style.display = 'block';
-            
-            const frases = [
-                "Sentindo meu caminho de volta para você...",
-                "Eu nunca quis te ver partir.",
-                "Tudo o que eu vejo é você.",
-                "Prometo que não vou mais te deixar."
-            ];
-            let i = 0;
-            document.getElementById('legenda').innerText = frases[0];
-            setInterval(() => {
-                i = (i + 1) % frases.length;
-                document.getElementById('legenda').innerText = frases[i];
-            }, 4500);
         }
     </script>
 </body>
